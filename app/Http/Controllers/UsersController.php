@@ -4,6 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use Illuminate\Notifications\Notifiable;
+// ログ出力用に読み込み
+use Illuminate\Support\Facades\Log;
+
 use App\User;
 
 class UsersController extends Controller
@@ -92,11 +96,10 @@ class UsersController extends Controller
         $user->loadRelationshipCounts();
         
         $favorites = $user->favorites()->paginate(10);
-        
-        
+  
         return view('users.favorites', [
             'user' => $user,
-            'favorites' => $favorites,
+            'microposts' => $favorites,
         ]);
     }
     

@@ -23,15 +23,16 @@
                         @endif
                     </div>
                     <div>
-
+                        @if (!Auth::user()->is_favorite($micropost->id))
                             {!! Form::open(['route' => ['favorites.like', $micropost->id], 'method' => 'save']) !!}
                                 {!! Form::submit('Favorite', ['class' => 'btn btn-success btn-sm']) !!}
                             {!! Form::close() !!}
                         
-                            {!!Form::open(['route' => ['favorites.like', $micropost->id], 'method' => 'save']) !!}
+                        @else
+                            {!!Form::open(['route' => ['favorites.destroy', $micropost->id], 'method' => 'delete']) !!}
                                 {!! Form::submit('Unfavorite', ['class' => 'btn btn-light btn-sm']) !!}
                             {!! Form::close() !!}
-                       
+                        @endif
                     </div>
                 </div>
             </li>

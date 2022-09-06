@@ -5,6 +5,9 @@ namespace App;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+// ログ出力用に読み込み
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class User extends Authenticatable
 {
@@ -143,6 +146,28 @@ class User extends Authenticatable
     public function favorites()
     {
         return $this->belongsToMany(Micropost::class, 'favorites', 'user_id', 'micropost_id')->withTimestamps();
+        
+    }
+    
+    public function favorite($micropostId)
+    {
+       
+        if (!$this->is_favorite($micropostId)) {
+            $this->favorites()->attach($micropostId);
+        }
+    }
+    
+    public function unfavorite($micropostId)
+    {
+        if ($this->is_favorite($micropostId)) {
+            $this->favorites()->detach($micropostId);
+        }
+    }
+    
+    public function is_favorite($micropostId)
+    {
+        return $this->favorites()->where('micropost_id', $micropostId)->exists();
+
     }
     
 }
