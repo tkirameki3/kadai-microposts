@@ -22,6 +22,17 @@
                             {!! Form::close() !!}
                         @endif
                     </div>
+                    <div>
+
+                            {!! Form::open(['route' => ['favorites.like', $micropost->id], 'method' => 'save']) !!}
+                                {!! Form::submit('Favorite', ['class' => 'btn btn-success btn-sm']) !!}
+                            {!! Form::close() !!}
+                        
+                            {!!Form::open(['route' => ['favorites.like', $micropost->id], 'method' => 'save']) !!}
+                                {!! Form::submit('Unfavorite', ['class' => 'btn btn-light btn-sm']) !!}
+                            {!! Form::close() !!}
+                       
+                    </div>
                 </div>
             </li>
         @endforeach
