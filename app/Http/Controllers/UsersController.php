@@ -19,7 +19,7 @@ class UsersController extends Controller
         
         // ユーザ一覧ビューでそれを表示
         return view('users.index', [
-            'user' => $users,
+            'users' => $users,
         ]);
     }
     
